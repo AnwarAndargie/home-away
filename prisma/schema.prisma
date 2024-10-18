@@ -14,7 +14,16 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model TestProfile{
+
+
+model Profile {
   id String @id @default(uuid())
-  name String
+  clerkId String @unique
+  firstName String
+  lastName String
+  username String
+  email String
+  profileImage String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
