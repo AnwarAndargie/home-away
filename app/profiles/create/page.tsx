@@ -3,7 +3,12 @@ import FormInput from "@/components/form/FormInput";
 import SubmitButton from "@/components/form/SubmitButton";
 import FormContainer from "@/components/form/FormContainer";
 import { createProfileAction } from "@/lib/actions";
-function CreateProfile() {
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+async function CreateProfile() {
+  const user = await currentUser();
+
+  if (user?.privateMetadata.hasProfile) redirect("/");
   return (
     <section>
       <div className="">

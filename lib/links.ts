@@ -29,7 +29,7 @@ export const links: NavLink[] = [
     label: "my rentals",
   },
   {
-    href: "/profile",
+    href: "/profiles",
     label: "profile",
   },
 ];
