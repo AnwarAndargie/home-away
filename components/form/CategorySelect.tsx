@@ -1,4 +1,5 @@
 import React from "react";
+import { Label } from "../ui/label";
 import {
   Select,
   SelectContent,
@@ -11,11 +12,14 @@ import {
 import { category } from "@/lib/categories";
 
 function CategorySelect() {
+  const name = "category";
   return (
     <div>
-      <h1 className="font-semibold ">Categories</h1>
-      <Select>
-        <SelectTrigger className="">
+      <Label className="font-semibold mb-2" htmlFor={name}>
+        Categories
+      </Label>
+      <Select name={name} required defaultValue={category[0].name}>
+        <SelectTrigger className="" id={name}>
           <SelectValue placeholder="Select a catgeory" />
         </SelectTrigger>
         <SelectContent>
@@ -24,7 +28,10 @@ function CategorySelect() {
               return (
                 <div>
                   <SelectItem value={cat.name}>
-                    <p className="capitalize">{cat.name}</p>
+                    <span className="capitalize flex items-center gap-2">
+                      {<cat.icon />}
+                      {cat.name}
+                    </span>
                   </SelectItem>
                 </div>
               );

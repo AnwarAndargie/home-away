@@ -1,6 +1,6 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { formattedCountries } from "../../lib/countries";
+import { Label } from "../ui/label";
+
 import {
   Select,
   SelectContent,
@@ -10,37 +10,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+type countryType = {
+  name: string;
+  flag: string;
+  location: string;
+  region: string;
+  code: string;
+};
 function CountrySelect() {
-  const [countries, setCountries] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("https://restcountries.com/v3.1/all")
-      .then((response) => {
-        const countryOptions = response.data.map((country: any) => ({
-          label: country.name.common,
-          value: country.name.common,
-        }));
-        setCountries(countryOptions);
-      })
-      .catch((error) => {
-        console.error("Error fetching countries:", error);
-      });
-  }, []);
-
   return (
     <div>
-      <h1 className="font-semibold">Country</h1>
-      <Select>
-        <SelectTrigger className="">
-          <SelectValue placeholder="Select a country" />
-        </SelectTrigger>
+      <Label htmlFor="country" className="font-semibold mb-2">
+        Country
+      </Label>
+      <Select name="country" required defaultValue={formattedCountries[0].name}>
+        <SelectTrigger></SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {countries.map((country: any) => (
-              <SelectItem key={country.value} value={country.value}>
-                <p className="capitalize">{country.label}</p>
+            {formattedCountries.map((country) => (
+              <SelectItem key={country.code} value={country.code}>
+                <span className="capitalize flex gap-2">
+                  {country.flag}
+                  {country.name}
+                </span>
               </SelectItem>
             ))}
           </SelectGroup>

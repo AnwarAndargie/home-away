@@ -41,3 +41,18 @@ function validateImage() {
       "File must be a valid image format (jpeg, png, gif)."
     );
 }
+
+export const rentalSchema = z.object({
+  name: z.string().max(20),
+  tagline: z.string().max(30),
+  description: z.string().min(10).max(100),
+  price: z.number(),
+  category: z.string(),
+  country: z.string(),
+  imageUrl: validateImage(),
+  guests: z.number(),
+  bedroom: z.number(),
+  bed: z.number(),
+  bath: z.number(),
+  amenities: z.string(),
+});

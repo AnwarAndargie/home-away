@@ -1,38 +1,48 @@
+import { IconType } from "react-icons/lib";
+import { MdCabin } from "react-icons/md";
+import { TbCaravan, TbTent, TbBuildingCottage } from "react-icons/tb";
+import { GiWoodCabin, GiMushroomHouse } from "react-icons/gi";
+import { PiWarehouse, PiLighthouse, PiVan } from "react-icons/pi";
+import { GoContainer } from "react-icons/go";
 export const category = [
   {
-    icon: "",
+    icon: MdCabin,
     name: "cabin",
   },
   {
-    icon: "",
+    icon: PiVan,
     name: "airstream",
   },
   {
-    icon: "",
+    icon: TbTent,
     name: "tent",
   },
   {
-    icon: "",
+    icon: PiWarehouse,
     name: "warehouse",
   },
   {
-    icon: "",
+    icon: TbBuildingCottage,
     name: "cottage",
   },
   {
-    icon: "",
+    icon: GiMushroomHouse,
     name: "magic",
   },
   {
-    icon: "",
+    icon: GoContainer,
     name: "container",
   },
   {
-    icon: "",
+    icon: TbCaravan,
+    name: "caravan",
+  },
+  {
+    icon: PiLighthouse,
     name: "tiny",
   },
   {
-    icon: "",
+    icon: GiWoodCabin,
     name: "lodge",
   },
 ];

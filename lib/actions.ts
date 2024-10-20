@@ -1,5 +1,5 @@
 "use server";
-import { profileSchema, imageSchema } from "./schema";
+import { profileSchema, imageSchema, rentalSchema } from "./schema";
 import db from "./db";
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
@@ -136,7 +136,19 @@ export const createRentalsAction = async (
   prevState: any,
   formData: FormData
 ) => {
-  return {
-    message: "property created succussefully",
-  };
+  const user = await getAuthUser();
+
+  try {
+    const data = Object.fromEntries(formData);
+    console.log(data);
+    const validatedData = validateWithZodSchema(rentalSchema, data);
+    return {
+      message: "property created succussefully",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      message: "There was an error",
+    };
+  }
 };
