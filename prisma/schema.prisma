@@ -14,16 +14,33 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-
-
 model Profile {
-  id String @id @default(uuid())
-  clerkId String @unique
-  firstName String
-  lastName String
-  username String
-  email String
+  id           String       @id @default(uuid())
+  clerkId      String       @unique
+  firstName    String
+  lastName     String
+  username     String
+  email        String
   profileImage String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  Properties   Properties[]
+}
+
+model Properties {
+  id          String   @id @default(uuid())
+  renter      Profile  @relation(fields: [renterId], references: [id])
+  renterId    String
+  name        String
+  tagline     String
+  price       Int
+  category    String
+  description String
+  country     String
+  imageUrl    String
+  guests      Int
+  bedroom     Int
+  bed         Int
+  bath        Int
+  amenities   String[]
 }

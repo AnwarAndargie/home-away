@@ -131,3 +131,12 @@ export const updateProfileImageAction = async (
     return { message: `${error}` };
   }
 };
+
+export const createRentalsAction = async (
+  prevState: any,
+  formData: FormData
+) => {
+  return {
+    message: "property created succussefully",
+  };
+};

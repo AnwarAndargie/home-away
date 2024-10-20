@@ -1,7 +1,12 @@
 import React from "react";
+import GeneralInfo from "@/components/properties/GeneralInfo";
 
 function PropertiesPage() {
-  return <h1>PropertiesPage</h1>;
+  return (
+    <div>
+      <GeneralInfo />
+    </div>
+  );
 }
 
 export default PropertiesPage;
