@@ -2,7 +2,8 @@ import React from "react";
 import FormInput from "@/components/form/FormInput";
 import SubmitButton from "@/components/form/SubmitButton";
 import FormContainer from "@/components/form/FormContainer";
-import { updateProfileAction } from "@/lib/actions";
+import { updateProfileAction, updateProfileImageAction } from "@/lib/actions";
+import ImageInputContainer from "@/components/form/ImageInputContainer";
 import { currentUser } from "@clerk/nextjs/server";
 
 import { fetchProfile } from "@/lib/actions";
@@ -15,6 +16,14 @@ async function ProfilesPage() {
         <h1 className="text-2xl font-semibold mb-8 capitalize">
           Update Your Profile
         </h1>
+        <div>
+          <ImageInputContainer
+            image={profile.profileImage}
+            name={profile.username}
+            action={updateProfileImageAction}
+            text="Update Profile Image"
+          />
+        </div>
 
         <FormContainer action={updateProfileAction}>
           <div className="grid gap-4 md:grid-cols-2">

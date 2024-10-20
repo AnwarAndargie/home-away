@@ -5,6 +5,7 @@ import FormContainer from "@/components/form/FormContainer";
 import { createProfileAction } from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import ImageInputContainer from "@/components/form/ImageInputContainer";
 async function CreateProfile() {
   const user = await currentUser();
 
