@@ -30,7 +30,7 @@ function CountrySelect() {
         </SelectTrigger>
         <SelectContent>
           {formattedCountries.map((item) => (
-            <SelectItem key={item.code} value={item.code}>
+            <SelectItem key={item.code} value={item.name}>
               <span className="flex items-center gap-2">
                 {/* {item.flag} */}
                 {item.name}

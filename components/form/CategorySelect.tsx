@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { category } from "@/lib/categories";
+import { categoryList } from "@/lib/categories";
 
 function CategorySelect() {
   const name = "category";
@@ -18,13 +18,13 @@ function CategorySelect() {
       <Label className="font-semibold mb-2" htmlFor={name}>
         Categories
       </Label>
-      <Select name={name} required defaultValue={category[0].name}>
+      <Select name={name} required defaultValue={categoryList[0].name}>
         <SelectTrigger className="" id={name}>
           <SelectValue placeholder="Select a catgeory" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {category.map((cat) => {
+            {categoryList.map((cat) => {
               return (
                 <div>
                   <SelectItem value={cat.name}>

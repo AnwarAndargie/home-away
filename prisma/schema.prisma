@@ -43,4 +43,5 @@ model Property {
   bed         Int
   bath        Int
   amenities   String
+  createdAt DateTime @default(now())
 }

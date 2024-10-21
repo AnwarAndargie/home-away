@@ -4,7 +4,7 @@ import { TbCaravan, TbTent, TbBuildingCottage } from "react-icons/tb";
 import { GiWoodCabin, GiMushroomHouse } from "react-icons/gi";
 import { PiWarehouse, PiLighthouse, PiVan } from "react-icons/pi";
 import { GoContainer } from "react-icons/go";
-export const category = [
+export const categoryList = [
   {
     icon: MdCabin,
     name: "cabin",

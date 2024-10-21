@@ -165,3 +165,31 @@ export const createRentalsAction = async (
   }
   redirect("/");
 };
+
+export const fetchProperties = async ({
+  search = "",
+  category,
+}: {
+  search?: string;
+  category?: string;
+}) => {
+  const properties = await db.property.findMany({
+    where: {
+      category,
+      OR: [
+        { tagline: { contains: search, mode: "insensitive" } },
+        { name: { contains: search, mode: "insensitive" } },
+      ],
+    },
+
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      tagline: true,
+      imageUrl: true,
+      country: true,
+    },
+  });
+  return properties;
+};
