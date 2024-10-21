@@ -1,25 +1,55 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { amenties } from "@/lib/amenities";
+import { amenities } from "@/lib/amenities";
+import { IconType } from "react-icons/lib";
+
+type AmenityType = {
+  name: string;
+  icon: IconType;
+  selected: boolean;
+};
 
 function Amenities() {
+  const [selectedAmenities, setSelectedAmenities] =
+    useState<AmenityType[]>(amenities);
+
+  const handleChecked = (amenity: AmenityType) => {
+    setSelectedAmenities((prev) =>
+      prev.map((a) =>
+        a.name === amenity.name ? { ...a, selected: !a.selected } : a
+      )
+    );
+  };
+
   return (
-    <div className="flex flex-col space-y-3 mt-10">
-      <h1 className="font-semibold text-xl">Amenities</h1>
-      {amenties.map((amenity) => {
-        return (
-          <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
+    <section className="mt-10">
+      <input
+        type="hidden"
+        name="amenities"
+        value={JSON.stringify(selectedAmenities)}
+      />
+      <h1 className="font-semibold text-xl mb-4">Amenities</h1>
+      <div className="grid grid-cols-2 gap-4">
+        {selectedAmenities.map((amenity) => (
+          <div key={amenity.name} className="flex items-center space-x-2">
+            <Checkbox
+              id={amenity.name}
+              checked={amenity.selected}
+              onCheckedChange={() => handleChecked(amenity)}
+            />
             <label
-              htmlFor={amenity}
+              htmlFor={amenity.name}
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              {amenity}
+              <span className="flex items-center gap-2">
+                {amenity.name} <amenity.icon />
+              </span>
             </label>
           </div>
-        );
-      })}
-    </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

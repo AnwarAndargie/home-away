@@ -24,12 +24,12 @@ model Profile {
   profileImage String
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
-  Properties   Properties[]
+  Properties   Property[]
 }
 
-model Properties {
+model Property {
   id          String   @id @default(uuid())
-  renter      Profile  @relation(fields: [renterId], references: [id])
+  renter      Profile  @relation(fields: [renterId], references: [clerkId], onDelete: Cascade)
   renterId    String
   name        String
   tagline     String
@@ -42,5 +42,5 @@ model Properties {
   bedroom     Int
   bed         Int
   bath        Int
-  amenities   String[]
+  amenities   String
 }

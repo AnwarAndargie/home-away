@@ -137,18 +137,31 @@ export const createRentalsAction = async (
   formData: FormData
 ) => {
   const user = await getAuthUser();
+  const profile = await db.profile.findUnique({
+    where: {
+      clerkId: user.id,
+    },
+  });
 
   try {
     const data = Object.fromEntries(formData);
+    const imageData = formData.get("image") as File;
+    const validImage = validateWithZodSchema(imageSchema, { image: imageData });
+    const fullPath = await uploadImage(validImage.image);
     console.log(data);
     const validatedData = validateWithZodSchema(rentalSchema, data);
+    await db.property.create({
+      data: { ...validatedData, imageUrl: fullPath, renterId: user.id },
+    });
+
     return {
       message: "property created succussefully",
     };
   } catch (error) {
     console.log(error);
     return {
-      message: "There was an error",
+      message: error instanceof Error ? error.message : "An error has occurred",
     };
   }
+  redirect("/");
 };

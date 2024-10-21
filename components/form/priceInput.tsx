@@ -11,6 +11,7 @@ function PriceInput({ defaultValue }: defaultType) {
 
   return (
     <div className="mb-2">
+      
       <Label htmlFor={name} className="capitalize">
         Price ($)
       </Label>

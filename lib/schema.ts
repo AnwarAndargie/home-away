@@ -45,14 +45,21 @@ function validateImage() {
 export const rentalSchema = z.object({
   name: z.string().max(20),
   tagline: z.string().max(30),
-  description: z.string().min(10).max(100),
-  price: z.number(),
+  description: z.string().refine(
+    (description) => {
+      const wordCount = description.split(" ").length;
+      return wordCount >= 10 && wordCount <= 1000;
+    },
+    {
+      message: "description must be between 10 and 1000 words",
+    }
+  ),
+  price: z.coerce.number().int().min(0),
   category: z.string(),
   country: z.string(),
-  imageUrl: validateImage(),
-  guests: z.number(),
-  bedroom: z.number(),
-  bed: z.number(),
-  bath: z.number(),
+  guests: z.coerce.number().int().min(0),
+  bedroom: z.coerce.number().int().min(0),
+  bed: z.coerce.number().int().min(0),
+  bath: z.coerce.number().int().min(0),
   amenities: z.string(),
 });
