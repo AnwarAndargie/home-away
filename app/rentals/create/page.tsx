@@ -13,9 +13,9 @@ function CreateRentals() {
         <div className="mt-4 ">
           <h1 className="font-semibold mb-2">Accomodation Details</h1>
           <DetailsButton details="guests" />
-          <DetailsButton details="bedrooms" />
-          <DetailsButton details="beds" />
-          <DetailsButton details="baths" />
+          <DetailsButton details="bedroom" />
+          <DetailsButton details="bed" />
+          <DetailsButton details="bath" />
         </div>
 
         <Amenities />

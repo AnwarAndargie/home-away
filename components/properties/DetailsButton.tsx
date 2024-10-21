@@ -26,7 +26,7 @@ function DetailsButton({
   };
   return (
     <Card className="mb-4">
-      <input type="hidden" name="details" />
+      <input type="hidden" name={details} value={count} />
       <CardHeader>
         <div className="flex justify-between">
           <div className="flex flex-col">

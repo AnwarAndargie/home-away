@@ -18,24 +18,25 @@ type countryType = {
   code: string;
 };
 function CountrySelect() {
+  const name = "country";
   return (
     <div>
       <Label htmlFor="country" className="font-semibold mb-2">
         Country
       </Label>
-      <Select name="country" required defaultValue={formattedCountries[0].name}>
-        <SelectTrigger></SelectTrigger>
+      <Select name={name} required defaultValue={formattedCountries[0].code}>
+        <SelectTrigger id={name}>
+          <SelectValue />
+        </SelectTrigger>
         <SelectContent>
-          <SelectGroup>
-            {formattedCountries.map((country) => (
-              <SelectItem key={country.code} value={country.code}>
-                <span className="capitalize flex gap-2">
-                  {country.flag}
-                  {country.name}
-                </span>
-              </SelectItem>
-            ))}
-          </SelectGroup>
+          {formattedCountries.map((item) => (
+            <SelectItem key={item.code} value={item.code}>
+              <span className="flex items-center gap-2">
+                {/* {item.flag} */}
+                {item.name}
+              </span>
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
