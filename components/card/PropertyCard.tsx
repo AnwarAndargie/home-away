@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FavoritesButton from "./FavoritesButton";
 import CountryName from "./CountryName";
+
 import PropertyRating from "./PropertyRating";
 import { formatCurrency } from "@/lib/format";
 
@@ -23,10 +24,11 @@ function PropertyCard({ property }: { property: propertyCardType }) {
             className="rounded-md object-cover transform group-hover:scale-110 transition-transform duration-500"
           />
         </div>
-        <div className="p-2">
+        <div className="p-2 flex justify-between">
           <h1 className="capitalize mt-1 font-medium ">{name}</h1>
+          <PropertyRating inPage={false} propertyId={propertyId} />
         </div>
-        <p className="capitalize mt-1 text-muted-foreground text-sm">
+        <p className="capitalize p-2 mt-1 text-muted-foreground text-sm">
           {tagline}
         </p>
         <div className="flex flex-row justify-between p-2">
@@ -36,7 +38,9 @@ function PropertyCard({ property }: { property: propertyCardType }) {
           <p>{country}</p>
         </div>
       </Link>
-      <div className="absolute top-5 left-5 z-50"></div>
+      <div className="absolute top-5 right-5 z-50">
+        <FavoritesButton />
+      </div>
     </article>
   );
 }
