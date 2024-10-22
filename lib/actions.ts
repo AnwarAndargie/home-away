@@ -29,7 +29,7 @@ export const createProfileAction = async (
     const data = Object.fromEntries(formData);
     const validatedData = validateWithZodSchema(profileSchema, data);
     //const data = getFormData(formData);
-    console.log(data);
+    //  console.log(data);
 
     await db.profile.create({
       data: {
@@ -148,7 +148,7 @@ export const createRentalsAction = async (
     const imageData = formData.get("image") as File;
     const validImage = validateWithZodSchema(imageSchema, { image: imageData });
     const fullPath = await uploadImage(validImage.image);
-    console.log(data);
+    //console.log(data);
     const validatedData = validateWithZodSchema(rentalSchema, data);
     await db.property.create({
       data: { ...validatedData, imageUrl: fullPath, renterId: user.id },

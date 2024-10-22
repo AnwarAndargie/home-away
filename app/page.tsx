@@ -8,7 +8,6 @@ function HomePage({
 }: {
   searchParams: { search?: string; category?: string };
 }) {
-  console.log(searchParams);
   return (
     <section>
       <Categories

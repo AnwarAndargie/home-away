@@ -11,7 +11,9 @@ async function PropertiesContainer({
   search?: string;
   category?: string;
 }) {
-  const properties = await fetchProperties({ search, category });
+  //console.log(category);
+  const properties = await fetchProperties({ category, search });
+  //console.log(properties);
 
   if (properties.length === 0) {
     return (

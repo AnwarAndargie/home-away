@@ -4,23 +4,25 @@ import { Card, CardHeader } from "../ui/card";
 import { ScrollBar, ScrollArea } from "../ui/scroll-area";
 import Link from "next/link";
 
-type propType = {
+async function Categories({
+  search,
+  category,
+}: {
   search?: string;
   category?: string;
-};
-
-async function Categories(searchParams: propType) {
-  const searchTerm = searchParams.search
-    ? `search=${searchParams.search}`
-    : " ";
+}) {
+  const searchTerm = search ? `search=${search}` : " ";
   return (
     <section>
       <ScrollArea>
         <div className="flex flex-row items-center justify-between">
           {categoryList.map((item) => {
-            const isActive = searchParams.category === item.name;
+            const isActive = category === item.name;
             return (
-              <Link id={item.name} href={`/category=${item.name}${searchTerm}`}>
+              <Link
+                id={item.name}
+                href={`/?category=${item.name}${searchTerm}`}
+              >
                 <span
                   className={`flex flex-col items-center cursor-pointer duration-300 capitalize hover:text-primary ${
                     isActive ? `text-primary` : ``
