@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { validateWithZodSchema } from "./schema";
 import { uploadImage } from "./supabase";
+import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 
 const getAuthUser = async () => {
   const user = await currentUser();
@@ -192,4 +193,58 @@ export const fetchProperties = async ({
     },
   });
   return properties;
+};
+
+export const fetchFavorite = async ({ propertyId }: { propertyId: string }) => {
+  const user = await getAuthUser();
+  try {
+    const favorite = await db.favorite.findFirst({
+      where: {
+        profileId: user.id,
+        propertyId: propertyId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return favorite?.id;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const toggleFavoriteAction = async (prevState: {
+  propertyId: string;
+  favoriteId: string | undefined;
+  pathname: string;
+}) => {
+  const user = await getAuthUser();
+  const { propertyId, favoriteId, pathname } = prevState;
+  try {
+    if (!favoriteId) {
+      await db.favorite.create({
+        data: {
+          profileId: user.id,
+          propertyId,
+        },
+      });
+    } else {
+      await db.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
+    }
+    revalidatePath(pathname);
+    return {
+      message: `${
+        favoriteId
+          ? "Property added to unfovorite."
+          : "Property added to favorites"
+      }`,
+    };
+  } catch (error) {
+    return { message: "an error has occured" };
+  }
 };

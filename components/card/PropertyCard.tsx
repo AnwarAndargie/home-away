@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FavoritesButton from "./FavoritesButton";
 import CountryName from "./CountryName";
+import FavoritesForm from "./FavoritesForm";
 
 import PropertyRating from "./PropertyRating";
 import { formatCurrency } from "@/lib/format";
@@ -39,7 +40,7 @@ function PropertyCard({ property }: { property: propertyCardType }) {
         </div>
       </Link>
       <div className="absolute top-5 right-5 z-50">
-        <FavoritesButton />
+        <FavoritesButton propertyId={propertyId} />
       </div>
     </article>
   );
