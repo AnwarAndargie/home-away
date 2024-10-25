@@ -5,9 +5,9 @@ import FavoritesForm from "./FavoritesForm";
 import { fetchFavorite } from "@/lib/actions";
 
 async function FavoritesButton({ propertyId }: { propertyId: string }) {
-  const favoriteId = await fetchFavorite({ propertyId });
   const { userId } = auth();
   if (!userId) return <CardSignIn />;
+  const favoriteId = await fetchFavorite({ propertyId });
 
   return <FavoritesForm favoriteId={favoriteId} propertyId={propertyId} />;
 }

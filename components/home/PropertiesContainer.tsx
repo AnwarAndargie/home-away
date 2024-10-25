@@ -1,7 +1,6 @@
 import React from "react";
 import { fetchProperties } from "@/lib/actions";
 import EmptyList from "./EmptyList";
-import { categoryList } from "@/lib/categories";
 import PropertyList from "./PropertyList";
 
 async function PropertiesContainer({

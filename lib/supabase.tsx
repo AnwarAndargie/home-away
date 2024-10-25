@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
-const bucket = "home-away";
+const bucket = "home-away-temp";
 
 const URL = process.env.SUPABASE_URL as string;
 const KEY = process.env.SUPABASE_KEY as string;

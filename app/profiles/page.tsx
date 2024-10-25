@@ -9,7 +9,6 @@ import { currentUser } from "@clerk/nextjs/server";
 import { fetchProfile } from "@/lib/actions";
 async function ProfilesPage() {
   const profile = await fetchProfile();
-
   return (
     <section>
       <div className="">

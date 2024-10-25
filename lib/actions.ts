@@ -6,17 +6,16 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { validateWithZodSchema } from "./schema";
 import { uploadImage } from "./supabase";
-import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 
 const getAuthUser = async () => {
+  // const { userId } = auth();
+  // if (!userId) redirect("/");
   const user = await currentUser();
-
   if (!user) {
-    throw new Error("Please login to create profile");
+    throw new Error("You must be logged in to access this route");
   }
-  if (!user.privateMetadata.hasProfile) {
-    redirect("/profiles/create");
-  }
+  if (!user.privateMetadata.hasProfile) redirect("/profiles/create");
+
   return user;
 };
 
@@ -24,9 +23,9 @@ export const createProfileAction = async (
   prevState: any,
   formData: FormData
 ) => {
-  const User = await currentUser();
-  if (!User) throw new Error("Please login to create profile");
   try {
+    const User = await currentUser();
+    if (!User) throw new Error("Please login to create profile");
     const data = Object.fromEntries(formData);
     const validatedData = validateWithZodSchema(profileSchema, data);
     //const data = getFormData(formData);
@@ -57,23 +56,27 @@ export const createProfileAction = async (
 };
 
 export const fetchProfileImage = async () => {
-  const user = await currentUser();
-  if (!user) return null;
+  try {
+    const user = await currentUser();
+    if (!user) return null;
 
-  const profile = await db.profile.findUnique({
-    where: {
-      clerkId: user.id,
-    },
-    select: {
-      profileImage: true,
-    },
-  });
-
-  return profile?.profileImage;
+    const profile = await db.profile.findUnique({
+      where: {
+        clerkId: user.id,
+      },
+      select: {
+        profileImage: true,
+      },
+    });
+    return profile?.profileImage;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const fetchProfile = async () => {
   const user = await getAuthUser();
+
   const profile = await db.profile.findUnique({
     where: {
       clerkId: user.id,
@@ -119,7 +122,7 @@ export const updateProfileImageAction = async (
 
     await db.profile.update({
       where: {
-        clerkId: user.id,
+        clerkId: user?.id,
       },
       data: {
         profileImage: fullPath,
@@ -137,10 +140,11 @@ export const createRentalsAction = async (
   prevState: any,
   formData: FormData
 ) => {
-  const user = await getAuthUser();
+  const user = await currentUser();
+  if (!user) return new Error("");
   const profile = await db.profile.findUnique({
     where: {
-      clerkId: user.id,
+      clerkId: user?.id,
     },
   });
 
@@ -222,17 +226,17 @@ export const toggleFavoriteAction = async (prevState: {
   const user = await getAuthUser();
   const { propertyId, favoriteId, pathname } = prevState;
   try {
-    if (!favoriteId) {
+    if (favoriteId) {
+      await db.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      });
+    } else {
       await db.favorite.create({
         data: {
           profileId: user.id,
           propertyId,
-        },
-      });
-    } else {
-      await db.favorite.delete({
-        where: {
-          id: favoriteId,
         },
       });
     }
@@ -247,4 +251,28 @@ export const toggleFavoriteAction = async (prevState: {
   } catch (error) {
     return { message: "an error has occured" };
   }
+};
+
+export const fetchUserFavorite = async () => {
+  const user = await getAuthUser();
+  const favorite = await db.favorite.findMany({
+    where: {
+      profileId: user.id,
+    },
+    select: {
+      property: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          tagline: true,
+          imageUrl: true,
+          country: true,
+        },
+      },
+    },
+  });
+  return favorite.map((favorite) => {
+    return favorite.property;
+  });
 };
