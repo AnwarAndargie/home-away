@@ -199,6 +199,24 @@ export const fetchProperties = async ({
   return properties;
 };
 
+export const fetchSingleProperty = async ({
+  propertyId,
+}: {
+  propertyId: string;
+}) => {
+  const property = await db.property.findUnique({
+    where: {
+      id: propertyId,
+    },
+  });
+
+  if (!property) {
+    throw new Error(`Property with ID ${propertyId} not found`);
+  }
+
+  return property;
+};
+
 export const fetchFavorite = async ({ propertyId }: { propertyId: string }) => {
   const user = await getAuthUser();
   try {
