@@ -2,6 +2,7 @@ import React from "react";
 import { LuUser2 } from "react-icons/lu";
 import { propertyDetailType } from "@/lib/properties";
 import { fetchProfileBYId } from "@/lib/actions";
+import PropertyRating from "../card/PropertyRating";
 async function RenterHomeInfo({ property }: { property: propertyDetailType }) {
   const { name, imageUrl, price } = property;
   const { country, id: propertyId, tagline } = property;
@@ -13,11 +14,12 @@ async function RenterHomeInfo({ property }: { property: propertyDetailType }) {
     <section>
       <div>
         <div>
-          <div>
+          <div className="flex flex-row items-center space-x-10">
             <h1 className="font-bold text-xl capitalize">
               {" "}
               {category} in {country}
             </h1>
+            <PropertyRating propertyId={propertyId} inPage={true} />
           </div>
           <ul className="flex flex-row space-x-6 ml-4 list-disc">
             <li>{bedroom} bedrooms</li>
