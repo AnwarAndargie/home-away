@@ -1,5 +1,5 @@
 import React from "react";
-import PropertyDetailsContainer from "@/components/home/PropertyDetailsContainer";
+import PropertyDetailsContainer from "@/components/properties/PropertyDetailsContainer";
 
 function page({ params }: { params: { propertyId: string } }) {
   console.log(params.propertyId);

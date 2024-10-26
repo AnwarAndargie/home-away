@@ -20,7 +20,7 @@ export type propertyDetailType = {
   bedroom: number;
   bed: number;
   bath: number;
-  amenities: String;
-  category: String;
-  description: String;
+  amenities: string;
+  category: string;
+  description: string;
 };

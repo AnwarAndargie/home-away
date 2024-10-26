@@ -22,13 +22,13 @@ function ShareProduct() {
         <PopoverContent side="top" align="center" className="w-32">
           <div className="flex flex-row justify-between">
             <div>
-              <Link href="">
+              <Link href="https://twitter.com/">
                 {" "}
                 <FaXTwitter className="w-6 h-6 text-sky-600" />
               </Link>
             </div>
             <div>
-              <Link href="">
+              <Link href="https://www.linkedin.com">
                 {" "}
                 <FaLinkedin className="w-6 h-6 text-sky-600" />
               </Link>

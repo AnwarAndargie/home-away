@@ -85,6 +85,15 @@ export const fetchProfile = async () => {
   if (!profile) redirect("/profiles/create");
   return profile;
 };
+export const fetchProfileBYId = async ({ renterId }: { renterId: string }) => {
+  const profile = await db.profile.findUnique({
+    where: {
+      clerkId: renterId,
+    },
+  });
+  if (!profile) throw new Error("No profile with this renter Id");
+  return profile;
+};
 
 export const updateProfileAction = async (
   prevState: any,
