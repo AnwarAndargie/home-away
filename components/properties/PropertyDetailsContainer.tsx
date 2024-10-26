@@ -1,12 +1,16 @@
 import React from "react";
 import { fetchSingleProperty, fetchFavorite } from "@/lib/actions";
 import PropertyDetails from "./PropertyDetails";
-import { auth } from "@clerk/nextjs/server";
-import { CardSignIn } from "../form/SubmitButton";
 import RenterHomeInfo from "./RenterHomeInfo";
 import Description from "./Description";
 import CalendarSelect from "./CalendarSelect";
 import PropertyOffers from "./PropertyOffers";
+import dynamic from "next/dynamic";
+import { Skeleton } from "../ui/skeleton";
+const DynamicMap = dynamic(() => import("./PropertyMap"), {
+  ssr: false,
+  loading: () => <Skeleton className="h-[400px] w-full" />,
+});
 
 async function PropertyDetailsContainer({
   propertyId,
@@ -22,6 +26,7 @@ async function PropertyDetailsContainer({
           <RenterHomeInfo property={property} />
           <Description property={property} />
           <PropertyOffers property={property} />
+          <DynamicMap countryCode={property.country} />
         </div>
         <div className="w-2/3">
           <CalendarSelect />
