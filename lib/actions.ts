@@ -225,6 +225,48 @@ export const fetchSingleProperty = async ({
 
   return property;
 };
+export const deleteSingleProperty = async ({
+  propertyId,
+  pathname,
+}: {
+  propertyId: string;
+  pathname: string;
+}) => {
+  const property = await db.property.delete({
+    where: {
+      id: propertyId,
+    },
+  });
+
+  if (!property) {
+    throw new Error(`Property with ID ${propertyId} not found`);
+  }
+  revalidatePath(pathname);
+  return property;
+};
+
+export const fetchPersonalPoperty = async () => {
+  const user = await getAuthUser();
+  const property = await db.property.findMany({
+    where: {
+      renterId: user.id,
+    },
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      tagline: true,
+      imageUrl: true,
+      country: true,
+    },
+  });
+
+  if (!property) {
+    throw new Error(`Property with ID not found`);
+  }
+
+  return property;
+};
 
 export const fetchFavorite = async ({ propertyId }: { propertyId: string }) => {
   const user = await getAuthUser();
