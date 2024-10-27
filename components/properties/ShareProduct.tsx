@@ -16,7 +16,6 @@ import {
   LinkedinIcon,
   EmailIcon,
 } from "react-share";
-import Link from "next/link";
 
 function ShareProduct({
   propertyId,
