@@ -42,7 +42,7 @@ function PropertyDetails({ property }: { property: propertyDetailType }) {
           <div className="flex flex-row justify-between mt-4 mb-4">
             <h1 className="text-3xl font-bold capitalize mb-2">{tagline}</h1>
             <div className="flex flex-row items-center space-x-8">
-              <ShareProduct />
+              <ShareProduct propertyId={propertyId} name={name} />
               <FavoritesButton propertyId={propertyId} />
             </div>
           </div>
