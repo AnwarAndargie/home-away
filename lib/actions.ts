@@ -2,6 +2,7 @@
 import { profileSchema, imageSchema, rentalSchema } from "./schema";
 import db from "./db";
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server";
+import { checkRole } from "@/utils/roles";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { validateWithZodSchema } from "./schema";
@@ -345,3 +346,37 @@ export const fetchUserFavorite = async () => {
     return favorite.property;
   });
 };
+
+//Admin's Page Action
+export async function setRole(formData: FormData) {
+  // Check that the user trying to set the role is an admin
+  if (!checkRole("admin")) {
+    return { message: "Not Authorized" };
+  }
+
+  try {
+    const res = await clerkClient().users.updateUser(
+      formData.get("id") as string,
+      {
+        publicMetadata: { role: formData.get("role") },
+      }
+    );
+    return { message: `User successfully set as` };
+  } catch (err) {
+    return { message: `${err}` };
+  }
+}
+
+export async function removeRole(formData: FormData) {
+  try {
+    const res = await clerkClient().users.updateUser(
+      formData.get("id") as string,
+      {
+        publicMetadata: { role: null },
+      }
+    );
+    return { message: `User role has been removed` };
+  } catch (err) {
+    return { message: "An error has occured" };
+  }
+}
