@@ -5,6 +5,7 @@ import NavBar from "@/components/navbar/NavBar";
 import Provider from "./provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { FaAirbnb } from "react-icons/fa";
+import FooterPage from "@/components/footer/FooterPage";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Provider>
             <NavBar />
             <main className="container py-10">{children}</main>
+            <FooterPage />
           </Provider>
         </body>
       </html>
