@@ -10,18 +10,27 @@ async function PropertiesContainer({
   search?: string;
   category?: string;
 }) {
-  //console.log(category);
-  const properties = await fetchProperties({ category, search });
-  //console.log(properties);
+  try {
+    const properties = await fetchProperties({ category, search });
 
-  if (properties.length === 0) {
+    if (properties.length === 0) {
+      return (
+        <section className="mt-4">
+          <EmptyList />
+        </section>
+      );
+    }
+    return <PropertyList properties={properties} />;
+  } catch (error) {
+    console.error("Error fetching properties:", error);
     return (
       <section className="mt-4">
-        <EmptyList />
+        <p className="text-red-500">
+          Failed to load properties. Please try again later.
+        </p>
       </section>
     );
   }
-  return <PropertyList properties={properties} />;
 }
 
 export default PropertiesContainer;
