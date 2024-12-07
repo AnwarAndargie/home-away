@@ -8,6 +8,7 @@ import DetailsButton from "@/components/properties/DetailsButton";
 function CreateRentals() {
   return (
     <div className="border-2 p-4 rounded-md">
+      <h1 className="text-xl font-semibold mb-4">Create Rental</h1>
       <FormContainer action={createRentalsAction}>
         <GeneralInfo />
         <div className="mt-4 ">
